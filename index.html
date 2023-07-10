@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="icon" href="../img/f1-logo-red.png">
+    <title>Store | Formula 1™</title>
+    <meta name="description" content=" Store de la Formula 1.">
+    <meta name="keywords" content="Formula 1, F1, Store, Sale, F1 Sale">
+</head>
+
+<body>
+    <header>
+        <div class="logo-container">
+            <a href="../index.html">
+                <img src="../img/f1-logo-white.png" alt="Logo de Fórmula 1" width="150">
+            </a>
+        </div>
+		<nav class="nav-bar">
+            <button class="hamburger-menu">
+                <img src="../img/Wheel-menu.png" alt="menu">
+            </button>
+            <ul class="menu">
+                <a class="nav-bar-link" href="../index.html">Home</a>
+                <button class="view-cart" onclick="viewCart()">
+                    <img src="../img/shopping-cart.png" alt="Cart">
+                </button>
+            </ul>
+		</nav>
+    </header>
+    <main>
+
+        <section id="store">
+			<h2>Store</h2>
+		</section>
+
+        <div class="items-list">
+            <ol>
+                <div data-aos="zoom-in-up">
+                    <img src="https://images.footballfanatics.com/mercedes-amg-petronas-f1-team/mercedes-amg-petronas-f1-2023-team-stealth-hoodie_ss5_p-13376397+u-3tajvzqsjn4tdb1c2mwv+v-laviv0myn6kymyw1dyjl.jpg?_hv=2&w=340" alt="Mercedes AMG Petronas F1 2023 Team Stealth Hoodie">
+                    <div> Mercedes AMG Petronas F1 2023 Team Stealth Hoodie </div>
+                    <strong>$80</strong>
+                </div>
+                <button class="add-to-cart" onclick="addToCart(80, 'Mercedes AMG Petronas F1 2023 Team Stealth Hoodie')">Add to cart</button>
+            </ol>
+            <ol>
+                <div data-aos="zoom-in-up">
+                    <img src="https://images.footballfanatics.com/red-bull-racing/oracle-red-bull-racing-2023-team-polo_ss4_p-13334182+u-b0ltd2b4a8klkiofqnxj+v-f5c87e271a10452a97dbd9e1a8031219.jpg?_hv=2&w=340" alt="Oracle Red Bull Racing 2023 Team Polo">
+                    <div> Oracle Red Bull Racing 2023 Team Polo </div>
+                    <strong>$50</strong>
+                </div>
+                <button class="add-to-cart" onclick="addToCart(50, 'Oracle Red Bull Racing 2023 Team Polo')">Add to cart</button>
+            </ol>
+            <ol>
+                <div data-aos="zoom-in-up">
+                    <img src="https://images.footballfanatics.com/scuderia-ferrari/scuderia-ferrari-2023-team-charles-leclerc-t-shirt_ss4_p-13368477+u-1a0txatu76m1w7bkbbaj+v-b38414ba03b0479ebc7e8f9e4116ab11.jpg?_hv=2&w=340" alt="Scuderia Ferrari 2023 Team Charles Leclerc T-Shirt">
+                    <div> Scuderia Ferrari 2023 Team Charles Leclerc T-Shirt </div>
+                    <strong>$55</strong>
+                </div>
+                <button class="add-to-cart" onclick="addToCart(55, 'Scuderia Ferrari 2023 Team Charles Leclerc T-Shirt')">Add to cart</button>
+            </ol>
+            <ol>
+                <div data-aos="zoom-in-up">
+                    <img src="https://images.footballfanatics.com/pirelli/pirelli-medium-tyre-keyring-yellow_ss4_p-13329453+u-qh6lhfin10px0efjxdma+v-d5481fc37f6f47b5b35c5b60c9913b3b.jpg?_hv=2&w=340" alt="Baku City Circuit">
+                    <div> Pirelli Medium Tyre Keyring - Yellow </div>
+                    <strong>$5</strong>
+                </div>
+                <button class="add-to-cart" onclick="addToCart(5, 'Pirelli Medium Tyre Keyring - Yellow')">Add to cart</button>
+            </ol>
+            <ol>
+                <div data-aos="zoom-in-up">
+                    <img src="https://images.footballfanatics.com/mercedes-amg-petronas-f1-team/mercedes-amg-petronas-f1-2023-team-softshell-jacket_ss4_p-13368587+u-3eni2ld9fe08ym6ev1gj+v-d6cf1effdc564d528cf065aad06862d4.jpg?_hv=2&w=340" alt="Mercedes AMG Petronas F1 2023 Team Softshell Jacket">
+                    <div> Mercedes AMG Petronas F1 2023 Team Softshell Jacket </div>
+                    <strong>$75</strong>
+                </div>
+                <button class="add-to-cart" onclick="addToCart(75, 'Mercedes AMG Petronas F1 2023 Team Softshell Jacket')">Add to cart</button>
+            </ol>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Fórmula 1™</p>
+    </footer>  
+
+    <script src="../scripts/index.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    
+    <script>
+        const hamburgerMenu = document.querySelector('.hamburger-menu');
+        const menu = document.querySelector('.menu');
+        hamburgerMenu.addEventListener('click', () => {
+        menu.classList.toggle('show');
+        });
+    </script>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script>
+        AOS.init({
+            duration: 1200,
+        })
+    </script>
+
+</body>
+</html>
