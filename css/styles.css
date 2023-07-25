@@ -9,7 +9,6 @@ header {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  overflow: hidden;
 }
 
 .logo-container {
@@ -36,9 +35,6 @@ header {
     border-color: #FFFFFF;
     border-radius: 100px;
   }
-  .hamburger-menu:focus {
-    outline: none;
-  }
   .menu {
     display: none;
   }
@@ -52,6 +48,10 @@ header {
     align-self: center;
   }
 }
+.show {
+  display: grid;
+}
+
 .screen-header {
   padding-left: 2.5%;
 }
@@ -60,7 +60,6 @@ header {
   display: flex;
   position: relative;
   align-self: center;
-  align-items: center;
   justify-content: center;
   background-color: #FFFFFF;
   border-color: #FFFFFF;
@@ -69,6 +68,7 @@ header {
   margin-right: 10%;
   margin-left: 90%;
   width: 80px;
+  cursor: pointer;
 }
 .view-cart img {
   width: 50px;
