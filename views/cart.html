@@ -18,6 +18,10 @@
 
 <body>
     <header>
+        <!-- <a class="view-cart" href="/views/cart.html" onclick="viewCart()"> -->
+        <a class="view-cart" onclick="viewCart()">
+            <img src="/img/shopping-cart.png" alt="Cart">
+        </a>
         <div class="logo-container">
             <a href="index.html">
                 <img src="/img/f1-logo-white.png" alt="Logo de Fórmula 1" width="150">
@@ -26,19 +30,17 @@
 		<nav class="nav-bar">
             <button class="hamburger-menu">
                 <img src="/img/Wheel-menu.png" alt="menu">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
             </button>
             <ul class="menu">
                 <a class="nav-bar-link" href="/index.html">Home</a>
-                <a class="nav-bar-link" href="/views/cart.html">Cart</a>
+                <a class="nav-bar-link" href="/views/apparel.html">Apparel</a>
+                <a class="nav-bar-link" href="/views/accessories.html">Accessories</a>
             </ul>
 		</nav>
     </header>
     <main>
 
-        <section id="cart">
+        <section id="cart" class="screen-header">
 			<h2>Cart</h2>
 		</section>
 
@@ -48,6 +50,8 @@
     <footer>
         <p>&copy; 2023 Fórmula 1™</p>
     </footer>  
+
+    <script src="../scripts/index.js"></script>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
    
