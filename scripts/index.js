@@ -33,6 +33,38 @@ function viewCart() {
     console.log("Total Price: $" + totalPrice)
 }
 
+document.getElementById("search-bar-button").addEventListener("click", search)
+document.getElementById("search-input").addEventListener("keyup", (event) => {
+    if (event.key === 'Enter') { 
+        search();
+    }
+})
+
+function search() {
+    const searchInput = document.getElementById("search-input").value.toLowerCase()
+    
+    console.log("Results for: " + searchInput)
+    
+    const results = products.filter((products) => products.name.toLowerCase().includes(searchInput))
+    
+    switch(results.length) {
+        case 0:
+            console.log("No items found");
+            break;
+        case 1:
+            console.log("There was " + results.length + " item found:");
+            results.forEach(result => {
+                console.log("\t" + result.name)
+            });
+            break;
+        default:
+            console.log("There were " + results.length + " items found:");
+            results.forEach(result => {
+                console.log("\t" + result.name)
+            });
+    }
+}
+
 class Product {
     constructor(id, name, price, productUrl, category) {
         this.id = id

@@ -103,6 +103,26 @@ header {
   }
 }
 
+#search-bar {
+  padding-left: 10%;
+  padding-right: 10%;
+  padding-top: 2.5%;
+}
+
+#search-input {
+  box-shadow: none;
+  border-color: transparent;
+}
+
+#search-bar-button {
+  background-color: $f1-grey;
+  color: $f1-black;
+  &:hover {
+    background-color: $f1-black;
+    color: $f1-white;
+  }
+}
+
 .add-to-cart {
     background-color: $f1-red;
     display: inline-block;
