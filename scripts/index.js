@@ -33,19 +33,17 @@ function viewCart() {
     console.log("Total Price: $" + totalPrice)
 }
 
-document.getElementById("search-bar-button").addEventListener("click", search)
-document.getElementById("search-input").addEventListener("keyup", (event) => {
-    if (event.key === 'Enter') { 
-        search();
-    }
-})
+document.getElementById("search-bar").innerHTML = `<input type="text" id="search-input" class="form-control" placeholder="Search..." aria-label="Search..." aria-describedby="button-addon2">
+<div class="input-group-append">
+    <button id="search-bar-button" class="btn btn-outline-secondary" type="button">Search</button>
+</div>`
 
 function search() {
-    const searchInput = document.getElementById("search-input").value.toLowerCase()
+    const searchInput = document.getElementById("search-input").value
     
     console.log("Results for: " + searchInput)
     
-    const results = products.filter((products) => products.name.toLowerCase().includes(searchInput))
+    const results = products.filter((products) => products.name.toLowerCase().includes(searchInput.toLowerCase()))
     
     switch(results.length) {
         case 0:
@@ -125,5 +123,63 @@ const products = [
         category: 'accessories'
     }
 ]
+
+document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("search-bar-button").addEventListener("click", search)
+    document.getElementById("search-input").addEventListener("keyup", (event) => {
+        if (event.key === "Enter") {
+            search()
+        }
+    })
+
+    if (window.location.pathname.includes("apparel.html")) {
+        displayApparel("items-apparel-list", products)
+    }
+
+    if (window.location.pathname.includes("accessories.html")) {
+        displayAccessories("items-accessories-list", products)
+    }
+});
+
+function displayApparel(targetView, products) {
+
+    const apparelView = document.getElementById(targetView)
+    
+    for (const product of products) {
+
+        if (product.category === 'apparel') {
+            let item = document.createElement("ol")
+    
+            item.innerHTML = `<div data-aos="zoom-in-up">
+            <img src="${product.productUrl}" alt="${product.name}">
+            <div> ${product.name} </div>
+            <strong>$${product.price}</strong>
+            </div>
+            <button class="add-to-cart" onclick="addToCart(${product.price}, '${product.name}')">Add to cart</button>`
+            apparelView.appendChild(item)
+        }
+    }
+}
+
+function displayAccessories(targetView, products) {
+
+    const accessoriesView = document.getElementById(targetView)
+    
+    for (const product of products) {
+
+        if (product.category === 'accessories') {
+            let item = document.createElement("ol")
+    
+            item.innerHTML = `<div data-aos="zoom-in-up">
+            <img src="${product.productUrl}" alt="${product.name}">
+            <div> ${product.name} </div>
+            <strong>$${product.price}</strong>
+            </div>
+            <button class="add-to-cart" onclick="addToCart(${product.price}, '${product.name}')">Add to cart</button>`
+            accessoriesView.appendChild(item)
+        }
+    }
+}
+
 
 console.log(products)
