@@ -50,26 +50,16 @@ function search() {
             console.log("No items found");
             break;
         case 1:
-            console.log("There was " + results.length + " item found:");
+            console.log("There was " + results.length + " item found:")
             results.forEach(result => {
                 console.log("\t" + result.name)
             });
             break;
         default:
-            console.log("There were " + results.length + " items found:");
+            console.log("There were " + results.length + " items found:")
             results.forEach(result => {
                 console.log("\t" + result.name)
             });
-    }
-}
-
-class Product {
-    constructor(id, name, price, productUrl, category) {
-        this.id = id
-        this.name = name
-        this.productUrl = productUrl
-        this.category = category
-        this.price = parseFloat(price)
     }
 }
 
@@ -121,25 +111,120 @@ const products = [
         name: 'Scuderia Ferrari Compact Umbrella - Red',
         productUrl: 'https://images.footballfanatics.com/scuderia-ferrari/scuderia-ferrari-compact-umbrella-red_ss4_p-12046114+u-a85sj1hghut3yc6qf0mq+v-3a4402dae3894381a86588f6159b76e4.jpg?_hv=2&w=340',
         category: 'accessories'
+    },
+    {
+        price: 5, 
+        name: 'Pirelli Intermediate Tyre Keyring - Green',
+        productUrl: 'https://images.footballfanatics.com/pirelli/pirelli-intermediate-tyre-keyring-green_ss4_p-13329452+u-mw8iwdb5vfh1k58phzv7+v-9f90c1e58e454d6aa33aac6c7f6b3874.jpg?_hv=2&w=340',
+        category: 'accessories'
+    },
+    {
+        price: 22, 
+        name: 'McLaren Flag',
+        productUrl: 'https://images.footballfanatics.com/mclaren-f1-team/mclaren-flag_ss4_p-13306577+u-tfnaopzqm004jbyut356+v-f48384fec2634d04b62925a11f00b841.jpg?_hv=2&w=340',
+        category: 'accessories'
+    },
+    {
+        price: 18, 
+        name: 'BWT Alpine F1 Team A522 No.31 Esteban Ocon 1:64 Model',
+        productUrl: 'https://images.footballfanatics.com/alpine/bwt-alpine-f1-team-a522-no31-esteban-ocon-1:64-model_ss4_p-13364191+u-153fha26059aqe4d0z3s+v-0b69eb2b937f4025a089cc0a8bf036d2.jpg?_hv=2&w=340',
+        category: 'accessories'
+    },
+    {
+        price: 28, 
+        name: 'Alfa Romeo Sauber F1 F1 Team ORLEN 2022 C42 No.77 - Valtteri Bottas 1:43 Model with Figure',
+        productUrl: 'https://images.footballfanatics.com/alfa-romeo-racing/alfa-romeo-sauber-f1-f1-team-orlen-2022-c42-no77-valtteri-bottas-1:43-model-with-figure_ss4_p-13365698+u-198qqicuo4adyynadb9g+v-af392f46a55f4762ad44a998dc14847d.jpg?_hv=2&w=340',
+        category: 'accessories'
+    },
+    {
+        price: 50, 
+        name: 'Ayrton Senna Lotus 97T - Horizontal Tribute - Estoril 1985 Limited Edition Poster',
+        productUrl: 'https://images.footballfanatics.com/ayrton-senna/ayrton-senna-lotus-97t-horizontal-tribute-estoril-1985-limited-edition-poster_ss4_p-13385623+u-ez0vl650r3kb8j1lg2wu+v-5e8e8acff3794490a2c5acfe69fefa91.jpg?_hv=2&w=340',
+        category: 'accessories'
+    },
+    {
+        price: 31, 
+        name: 'Scuderia AlphaTauri 2023 Team Cap - White',
+        productUrl: 'https://images.footballfanatics.com/alphatauri/scuderia-alphatauri-2023-team-cap-white_ss4_p-13349780+u-d9zytq9qfh7xhd0xdp3l+v-1677ba9e6ddc402198180e42768246ab.jpg?_hv=2&w=340',
+        category: 'apparel'
+    },
+    {
+        price: 40, 
+        name: 'Williams Racing 2023 Team Training Jersey - Kids',
+        productUrl: 'https://images.footballfanatics.com/williams-racing/williams-racing-2023-team-training-jersey-kids_ss4_p-13347537+u-9zc1pyghlnlmn9dvz0ya+v-646e64e5f4d14e72978d1f353a948c65.jpg?_hv=2&w=340',
+        category: 'apparel'
+    },
+    {
+        price: 33, 
+        name: 'Pirelli Podium Cap',
+        productUrl: 'https://images.footballfanatics.com/pirelli/pirelli-podium-cap_ss4_p-13329456+u-tn0tl87z0ahyao45mdty+v-1f7f9339cb5740a8925bf111dbf746db.jpg?_hv=2&w=340',
+        category: 'apparel'
+    },
+    {
+        price: 50, 
+        name: 'Williams Racing 2023 Team Training Jersey - Womens',
+        productUrl: 'https://images.footballfanatics.com/williams-racing/williams-racing-2023-team-training-jersey-womens_ss4_p-13347535+u-jcq8iqeb1nsg7pkj4lqb+v-a0ee9463c45d48ee9fc8b8b6c7d01d8a.jpg?_hv=2&w=340',
+        category: 'apparel'
     }
 ]
 
+document.getElementById("view-cart").addEventListener("click", viewCart)
+
 document.addEventListener("DOMContentLoaded", () => {
-    document.getElementById("search-bar-button").addEventListener("click", search)
-    document.getElementById("search-input").addEventListener("keyup", (event) => {
-        if (event.key === "Enter") {
-            search()
+        document.getElementById("search-bar-button").addEventListener("click", search)
+        document.getElementById("search-input").addEventListener("keyup", (event) => {
+            if (event.key === "Enter") {
+                search()
+            }
+        })
+
+        path = window.location.pathname
+
+        switch(true) {
+            case path.endsWith("/apparel.html"):
+                displayApparel("items-apparel-list", products)
+                break;
+            case path.endsWith("/accessories.html"):
+                displayAccessories("items-accessories-list", products)
+                break;
+            case path.endsWith("/index.html"):
+            default:
+                displayAll("items-home-list", products)
+                break;
         }
-    })
 
-    if (window.location.pathname.includes("apparel.html")) {
-        displayApparel("items-apparel-list", products)
-    }
+        const hamburgerMenu = document.querySelector('.hamburger-menu');
+        const menu = document.querySelector('.menu');
+        hamburgerMenu.addEventListener('click', () => {
+        menu.classList.toggle('show');
+        });
 
-    if (window.location.pathname.includes("accessories.html")) {
-        displayAccessories("items-accessories-list", products)
+        AOS.init({duration: 1200})
     }
-});
+)
+
+function displayAll(targetView, products) {
+
+    const homeView = document.getElementById(targetView)
+
+    for (const product of products) {
+        let item = document.createElement("ol")
+    
+        item.innerHTML = `<div data-aos="zoom-in-up" class="aos-init aos-animate">
+        <img src="${product.productUrl}" alt="${product.name}">
+        <div> ${product.name} </div>
+        <strong>$${product.price}</strong>
+        </div>
+        <button class="add-to-cart">Add to cart</button>`
+        homeView.appendChild(item)
+
+        const btnAddToCart = item.querySelector(".add-to-cart")
+
+        btnAddToCart.addEventListener("click", () => {
+            addToCart(product.price, product.name)
+        })
+    }
+}
 
 function displayApparel(targetView, products) {
 
@@ -155,8 +240,14 @@ function displayApparel(targetView, products) {
             <div> ${product.name} </div>
             <strong>$${product.price}</strong>
             </div>
-            <button class="add-to-cart" onclick="addToCart(${product.price}, '${product.name}')">Add to cart</button>`
+            <button class="add-to-cart">Add to cart</button>`
             apparelView.appendChild(item)
+
+            const btnAddToCart = item.querySelector(".add-to-cart")
+
+            btnAddToCart.addEventListener("click", () => {
+                addToCart(product.price, product.name)
+            })
         }
     }
 }
@@ -175,11 +266,14 @@ function displayAccessories(targetView, products) {
             <div> ${product.name} </div>
             <strong>$${product.price}</strong>
             </div>
-            <button class="add-to-cart" onclick="addToCart(${product.price}, '${product.name}')">Add to cart</button>`
+            <button class="add-to-cart">Add to cart</button>`
             accessoriesView.appendChild(item)
+
+            const btnAddToCart = item.querySelector(".add-to-cart")
+
+            btnAddToCart.addEventListener("click", () => {
+                addToCart(product.price, product.name)
+            })
         }
     }
 }
-
-
-console.log(products)
