@@ -107,7 +107,7 @@ const products = [
     {
         price: 30, 
         name: 'Oracle Red Bull Racing Backpack',
-        productUrl: 'https://images.footballfanatics.com/mercedes-amg-petronas-f1-team/mercedes-amg-petronas-f1-2023-team-softshell-jacket_ss4_p-13368587+u-3eni2ld9fe08ym6ev1gj+v-d6cf1effdc564d528cf065aad06862d4.jpg?_hv=2&w=340"',
+        productUrl: 'https://images.footballfanatics.com/red-bull-racing/oracle-red-bull-racing-backpack_ss4_p-13368668+u-hhkstd6oq1vwquldzdkl+v-5d576e7579b74c31abbb536f6ed9a65f.jpg?_hv=2&w=340"',
         category: 'accessories'
     },
     {
@@ -150,7 +150,7 @@ function displayApparel(targetView, products) {
         if (product.category === 'apparel') {
             let item = document.createElement("ol")
     
-            item.innerHTML = `<div data-aos="zoom-in-up">
+            item.innerHTML = `<div data-aos="zoom-in-up" class="aos-init aos-animate">
             <img src="${product.productUrl}" alt="${product.name}">
             <div> ${product.name} </div>
             <strong>$${product.price}</strong>
@@ -170,7 +170,7 @@ function displayAccessories(targetView, products) {
         if (product.category === 'accessories') {
             let item = document.createElement("ol")
     
-            item.innerHTML = `<div data-aos="zoom-in-up">
+            item.innerHTML = `<div data-aos="zoom-in-up" class="aos-init aos-animate">
             <img src="${product.productUrl}" alt="${product.name}">
             <div> ${product.name} </div>
             <strong>$${product.price}</strong>
