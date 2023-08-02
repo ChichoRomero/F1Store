@@ -1,13 +1,30 @@
 let itemsInCart = 0
 let totalPrice = 0
-const cart = []
+const cart = JSON.parse(localStorage.getItem('cart')) || []
 let i = 0
 
-function addToCart(price, name) {
+class Product {
+    constructor(name, price, productUrl, category) {
+        // this.id = id
+        this.name = name
+        this.productUrl = productUrl
+        this.category = category
+        this.price = parseFloat(price)
+    }
+}
+
+function saveCart(price, name, productUrl, category) {
+    cart.push(new Product(name, price, productUrl, category))
+    localStorage.setItem('cart', JSON.stringify(cart))
+}
+
+
+function addToCart(price, name, productUrl, category) {
     console.log("Item added to cart")
     itemsInCart++
     totalPrice = totalPrice + price
-    cart[i] = {name, price}
+    // cart[i] = {name, price, productUrl}
+    saveCart(price, name, productUrl, category)
     console.log(cart[i])
     i++
 }
@@ -221,7 +238,7 @@ function displayAll(targetView, products) {
         const btnAddToCart = item.querySelector(".add-to-cart")
 
         btnAddToCart.addEventListener("click", () => {
-            addToCart(product.price, product.name)
+            addToCart(product.price, product.name, product.productUrl, product.category)
         })
     }
 }
@@ -246,7 +263,7 @@ function displayApparel(targetView, products) {
             const btnAddToCart = item.querySelector(".add-to-cart")
 
             btnAddToCart.addEventListener("click", () => {
-                addToCart(product.price, product.name)
+                addToCart(product.price, product.name, product.productUrl, product.category)
             })
         }
     }
@@ -272,7 +289,7 @@ function displayAccessories(targetView, products) {
             const btnAddToCart = item.querySelector(".add-to-cart")
 
             btnAddToCart.addEventListener("click", () => {
-                addToCart(product.price, product.name)
+                addToCart(product.price, product.name, product.productUrl, product.category)
             })
         }
     }
