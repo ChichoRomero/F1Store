@@ -137,6 +137,20 @@ header {
     }
 }
 
+.remove-from-cart {
+  background-color: $f1-black;
+    display: inline-block;
+    padding: 10px;
+    font-weight: 600;
+    color: $f1-white;
+    border-radius: 15px; 
+    border-style: none;
+    cursor: pointer;
+    &:focus {
+        outline: none;
+    }
+}
+
 .items-list {
   display: flex;
   flex-wrap: wrap;

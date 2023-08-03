@@ -130,6 +130,20 @@ header {
   outline: none;
 }
 
+.remove-from-cart {
+  background-color: #000000;
+  display: inline-block;
+  padding: 10px;
+  font-weight: 600;
+  color: #FFFFFF;
+  border-radius: 15px;
+  border-style: none;
+  cursor: pointer;
+}
+.remove-from-cart:focus {
+  outline: none;
+}
+
 .items-list {
   display: flex;
   flex-wrap: wrap;

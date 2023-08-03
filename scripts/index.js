@@ -23,7 +23,6 @@ function addToCart(price, name, productUrl, category) {
     console.log("Item added to cart")
     itemsInCart++
     totalPrice = totalPrice + price
-    // cart[i] = {name, price, productUrl}
     saveCart(price, name, productUrl, category)
     console.log(cart[i])
     i++
@@ -204,6 +203,9 @@ document.addEventListener("DOMContentLoaded", () => {
             case path.endsWith("/accessories.html"):
                 displayAccessories("items-accessories-list", products)
                 break;
+            case path.endsWith("/cart.html"):
+                displayCart("items-cart", cart)
+                break;
             case path.endsWith("/index.html"):
             default:
                 displayAll("items-home-list", products)
@@ -220,8 +222,41 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 )
 
-function displayAll(targetView, products) {
+function displayCart(targetView, cart) {
+    const cartView = document.getElementById(targetView)
 
+    if(cart.length === 0) {
+        let emptyCart = document.createElement("div")
+
+        emptyCart.innerHTML = `<div class="content-not-found">
+        <p><strong>Cart is empty</strong></p>
+        <div data-aos="fade-left" class="aos-init aos-animate">
+        <img src="../img/Max-Not-Found.png" alt="Max-Not-Found">
+        </div>
+        </div>`
+        cartView.appendChild(emptyCart)
+    } else {
+        for (const product of cart) {
+            let item = document.createElement("ol")
+    
+            item.innerHTML = `<div data-aos="zoom-in-up" class="aos-init aos-animate">
+            <img src="${product.productUrl}" alt="${product.name}">
+            <div> ${product.name} </div>
+            <strong>$${product.price}</strong>
+            </div>
+            <button class="remove-from-cart">Remove from cart</button>`
+            cartView.appendChild(item)
+    
+            const btnRemoveFromCart = item.querySelector(".remove-from-cart")
+    
+            btnRemoveFromCart.addEventListener("click", () => {
+                localStorage.removeItem("index")
+            })
+        }
+    }
+}
+
+function displayAll(targetView, products) {
     const homeView = document.getElementById(targetView)
 
     for (const product of products) {
