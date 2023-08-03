@@ -247,11 +247,11 @@ function displayCart(targetView, cart) {
             <button class="remove-from-cart">Remove from cart</button>`
             cartView.appendChild(item)
     
-            const btnRemoveFromCart = item.querySelector(".remove-from-cart")
+            // const btnRemoveFromCart = item.querySelector(".remove-from-cart")
     
-            btnRemoveFromCart.addEventListener("click", () => {
-                localStorage.removeItem("index")
-            })
+            // btnRemoveFromCart.addEventListener("click", () => {
+            //     localStorage.removeItem("index")
+            // })
         }
     }
 }
