@@ -273,7 +273,16 @@ function displayAll(targetView, products) {
         const btnAddToCart = item.querySelector(".add-to-cart")
 
         btnAddToCart.addEventListener("click", () => {
-            addToCart(product.price, product.name, product.productUrl, product.category)
+            addToCart(product.price, product.name, product.productUrl, product.category);
+            Toastify ({
+                text: "Item added to cart",
+                duration: 1500,
+                gravity: 'top',
+                position: 'center',
+                style: {
+                    background: '#000000'
+                }
+            }).showToast()
         })
     }
 }
@@ -298,7 +307,16 @@ function displayApparel(targetView, products) {
             const btnAddToCart = item.querySelector(".add-to-cart")
 
             btnAddToCart.addEventListener("click", () => {
-                addToCart(product.price, product.name, product.productUrl, product.category)
+                addToCart(product.price, product.name, product.productUrl, product.category);
+                Toastify ({
+                    text: "Item added to cart",
+                    duration: 1500,
+                    gravity: 'top',
+                    position: 'center',
+                    style: {
+                        background: '#000000'
+                    }
+                }).showToast()
             })
         }
     }
@@ -324,7 +342,16 @@ function displayAccessories(targetView, products) {
             const btnAddToCart = item.querySelector(".add-to-cart")
 
             btnAddToCart.addEventListener("click", () => {
-                addToCart(product.price, product.name, product.productUrl, product.category)
+                addToCart(product.price, product.name, product.productUrl, product.category);
+                Toastify ({
+                    text: "Item added to cart",
+                    duration: 1500,
+                    gravity: 'top',
+                    position: 'center',
+                    style: {
+                        background: '#000000'
+                    }
+                }).showToast()
             })
         }
     }
