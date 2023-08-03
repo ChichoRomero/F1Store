@@ -5,7 +5,6 @@ let i = 0
 
 class Product {
     constructor(name, price, productUrl, category) {
-        // this.id = id
         this.name = name
         this.productUrl = productUrl
         this.category = category
@@ -246,12 +245,27 @@ function displayCart(targetView, cart) {
             </div>
             <button class="remove-from-cart">Remove from cart</button>`
             cartView.appendChild(item)
+
+            const index = cart.indexOf(product)
+
+            const btnRemoveFromCart = item.querySelector(".remove-from-cart")
     
-            // const btnRemoveFromCart = item.querySelector(".remove-from-cart")
-    
-            // btnRemoveFromCart.addEventListener("click", () => {
-            //     localStorage.removeItem("index")
-            // })
+            btnRemoveFromCart.addEventListener("click", () => {
+                cart.splice(index, 1)
+                localStorage.setItem('cart', JSON.stringify(cart))
+                cartView.innerHTML = ``
+                displayCart(targetView, cart)
+                Toastify ({
+                    text: "Item removed",
+                    duration: 1500,
+                    gravity: 'top',
+                    position: 'center',
+                    style: {
+                        background: '#f5f5f5',
+                        color: `#000000`
+                    }
+                }).showToast()
+            })
         }
     }
 }
@@ -273,7 +287,7 @@ function displayAll(targetView, products) {
         const btnAddToCart = item.querySelector(".add-to-cart")
 
         btnAddToCart.addEventListener("click", () => {
-            addToCart(product.price, product.name, product.productUrl, product.category);
+            addToCart(product.price, product.name, product.productUrl, product.category)
             Toastify ({
                 text: "Item added to cart",
                 duration: 1500,
