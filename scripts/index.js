@@ -1,83 +1,3 @@
-let itemsInCart = 0
-let totalPrice = 0
-const cart = JSON.parse(localStorage.getItem('cart')) || []
-let i = 0
-
-class Product {
-    constructor(name, price, productUrl, category) {
-        this.name = name
-        this.productUrl = productUrl
-        this.category = category
-        this.price = parseFloat(price)
-    }
-}
-
-function saveCart(price, name, productUrl, category) {
-    cart.push(new Product(name, price, productUrl, category))
-    localStorage.setItem('cart', JSON.stringify(cart))
-}
-
-
-function addToCart(price, name, productUrl, category) {
-    console.log("Item added to cart")
-    itemsInCart++
-    totalPrice = totalPrice + price
-    saveCart(price, name, productUrl, category)
-    console.log(cart[i])
-    i++
-}
-
-function viewCart() {
-
-    if(cart.length === 0) {
-        console.log("Cart is empty!")
-    } else {
-        console.log("There are " + itemsInCart + " items in the cart")
-    
-        for(let j=0; j< cart.length; j++) {
-            console.log("Item in cart: " + cart[j].name + ", Price: $" + cart[j].price)
-        }
-    }
-
-    if(itemsInCart > 5) {
-        let discount = totalPrice * 0.05
-        console.log("5% DISCOUNT APPLIED! -$" + discount)
-        totalPrice = totalPrice * 0.95
-    }
-
-    console.log("Total Price: $" + totalPrice)
-}
-
-document.getElementById("search-bar").innerHTML = `<input type="text" id="search-input" class="form-control" placeholder="Search..." aria-label="Search..." aria-describedby="button-addon2">
-<div class="input-group-append">
-    <button id="search-bar-button" class="btn btn-outline-secondary" type="button">Search</button>
-</div>`
-
-function search() {
-    const searchInput = document.getElementById("search-input").value
-    
-    console.log("Results for: " + searchInput)
-    
-    const results = products.filter((products) => products.name.toLowerCase().includes(searchInput.toLowerCase()))
-    
-    switch(results.length) {
-        case 0:
-            console.log("No items found");
-            break;
-        case 1:
-            console.log("There was " + results.length + " item found:")
-            results.forEach(result => {
-                console.log("\t" + result.name)
-            });
-            break;
-        default:
-            console.log("There were " + results.length + " items found:")
-            results.forEach(result => {
-                console.log("\t" + result.name)
-            });
-    }
-}
-
 const products = [
     {
         price: 80,
@@ -183,15 +103,76 @@ const products = [
     }
 ]
 
+let itemsInCart = 0
+let totalPrice = 0
+const cart = JSON.parse(localStorage.getItem('cart')) || []
+let i = 0
+
+class Product {
+    constructor(name, price, productUrl, category) {
+        this.name = name
+        this.productUrl = productUrl
+        this.category = category
+        this.price = parseFloat(price)
+    }
+}
+
+function saveCart(price, name, productUrl, category) {
+    cart.push(new Product(name, price, productUrl, category))
+    localStorage.setItem('cart', JSON.stringify(cart))
+}
+
+
+function addToCart(price, name, productUrl, category) {
+    console.log("Item added to cart")
+    itemsInCart++
+    totalPrice = totalPrice + price
+    saveCart(price, name, productUrl, category)
+    console.log(cart[i])
+    i++
+}
+
+function viewCart() {
+
+    if(cart.length === 0) {
+        console.log("Cart is empty!")
+    } else {
+        console.log("There are " + itemsInCart + " items in the cart")
+    
+        for(let j=0; j< cart.length; j++) {
+            console.log("Item in cart: " + cart[j].name + ", Price: $" + cart[j].price)
+        }
+    }
+
+    if(itemsInCart > 5) {
+        let discount = totalPrice * 0.05
+        console.log("5% DISCOUNT APPLIED! -$" + discount)
+        totalPrice = totalPrice * 0.95
+    }
+
+    console.log("Total Price: $" + totalPrice)
+}
+
+document.getElementById("search-bar").innerHTML = `<input type="text" id="search-input" class="form-control" placeholder="Search..." aria-label="Search..." aria-describedby="button-addon2">
+<div class="input-group-append">
+    <button id="search-bar-button" class="btn btn-outline-secondary" href="/views/results.html" type="button">Search</button>
+</div>`
+
+function search() {
+    const searchInput = document.getElementById("search-input").value
+
+    localStorage.setItem('search', JSON.stringify(searchInput))
+    
+    console.log("Results for: " + searchInput)
+    
+    const results = products.filter((products) => products.name.toLowerCase().includes(searchInput.toLowerCase()))
+    
+    displayResults("items-search", results)
+}
+
 document.getElementById("view-cart").addEventListener("click", viewCart)
 
 document.addEventListener("DOMContentLoaded", () => {
-        document.getElementById("search-bar-button").addEventListener("click", search)
-        document.getElementById("search-input").addEventListener("keyup", (event) => {
-            if (event.key === "Enter") {
-                search()
-            }
-        })
 
         path = window.location.pathname
 
@@ -205,11 +186,23 @@ document.addEventListener("DOMContentLoaded", () => {
             case path.endsWith("/cart.html"):
                 displayCart("items-cart", cart)
                 break;
+            case path.endsWith("/results.html"):
+                search()
+                // displayResults("items-search", results)
+                break;
             case path.endsWith("/index.html"):
             default:
                 displayAll("items-home-list", products)
                 break;
         }
+
+        document.getElementById("search-bar-button").addEventListener("click", search)
+        document.getElementById("search-input").addEventListener("keyup", (event) => {
+            if (event.key === "Enter") {
+                search()
+                window.location.href = "/views/results.html"
+            }
+        })
 
         const hamburgerMenu = document.querySelector('.hamburger-menu');
         const menu = document.querySelector('.menu');
@@ -220,6 +213,29 @@ document.addEventListener("DOMContentLoaded", () => {
         AOS.init({duration: 1200})
     }
 )
+
+function displayResults(targetView, results) {
+
+    switch(results.length) {
+        case 0:
+            console.log("No items found")
+            // displayResults(targetView, results);
+            break;
+        case 1:
+            console.log("There was " + results.length + " item found:")
+            results.forEach(result => {
+                // displayResults(targetView, results)
+                console.log("\t" + result.name)
+            });
+            break;
+        default:
+            console.log("There were " + results.length + " items found:")
+            results.forEach(result => {
+                // displayResults(targetView, results)
+                console.log("\t" + result.name)
+            });
+    }
+}
 
 function displayCart(targetView, cart) {
     const cartView = document.getElementById(targetView)
