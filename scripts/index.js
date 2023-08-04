@@ -166,8 +166,10 @@ function search() {
     console.log("Results for: " + searchInput)
     
     const results = products.filter((products) => products.name.toLowerCase().includes(searchInput.toLowerCase()))
+
+    localStorage.setItem('results', JSON.stringify(results))
     
-    displayResults("items-search", results)
+    // displayResults("items-search", results, searchInput)
 }
 
 document.getElementById("view-cart").addEventListener("click", viewCart)
@@ -187,8 +189,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 displayCart("items-cart", cart)
                 break;
             case path.endsWith("/results.html"):
-                search()
-                // displayResults("items-search", results)
+                displayResults("items-search", results)
                 break;
             case path.endsWith("/index.html"):
             default:
@@ -214,12 +215,25 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 )
 
-function displayResults(targetView, results) {
+function displayResults(targetView, results, searchInput) {
+    const resultsView = document.getElementById(targetView)
 
-    switch(results.length) {
+    const resultsArray = localStorage.getItem(results)
+
+    let input = localStorage.getItem(searchInput)
+
+    switch(resultsArray.length) {
         case 0:
             console.log("No items found")
-            // displayResults(targetView, results);
+            let noResults = document.createElement("div")
+
+            resultsView.innerHTML = `<div class="content-not-found">
+            <p><strong>No items found for ${input}</strong></p>
+            <div data-aos="fade-left" class="aos-init aos-animate">
+            <img src="../img/Max-Not-Found.png" alt="Max-Not-Found">
+            </div>
+            </div>`
+            resultsView.appendChild(noResults)
             break;
         case 1:
             console.log("There was " + results.length + " item found:")
