@@ -155,7 +155,7 @@ function viewCart() {
 
 document.getElementById("search-bar").innerHTML = `<input type="text" id="search-input" class="form-control" placeholder="Search..." aria-label="Search..." aria-describedby="button-addon2">
 <div class="input-group-append">
-    <button id="search-bar-button" class="btn btn-outline-secondary" href="/views/results.html" type="button">Search</button>
+    <button id="search-bar-button" class="btn btn-outline-secondary" type="button">Search</button>
 </div>`
 
 function search() {
@@ -168,6 +168,8 @@ function search() {
     const results = products.filter((products) => products.name.toLowerCase().includes(searchInput.toLowerCase()))
 
     localStorage.setItem('results', JSON.stringify(results))
+
+    window.location.replace("../views/results.html")
 }
 
 document.getElementById("view-cart").addEventListener("click", viewCart)
@@ -199,7 +201,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("search-input").addEventListener("keyup", (event) => {
             if (event.key === "Enter") {
                 search()
-                window.location.href = "./views/results.html"
+                // window.location.replace("../views/results.html")
             }
         })
 
