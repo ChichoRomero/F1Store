@@ -169,7 +169,7 @@ function search() {
 
     localStorage.setItem('results', JSON.stringify(results))
 
-    window.location.replace("../views/results.html")
+    window.location.replace("./views/results.html")
 }
 
 document.getElementById("view-cart").addEventListener("click", viewCart)
@@ -201,7 +201,6 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("search-input").addEventListener("keyup", (event) => {
             if (event.key === "Enter") {
                 search()
-                // window.location.replace("../views/results.html")
             }
         })
 
