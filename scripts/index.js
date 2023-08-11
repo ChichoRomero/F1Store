@@ -168,8 +168,6 @@ function search() {
     const results = products.filter((products) => products.name.toLowerCase().includes(searchInput.toLowerCase()))
 
     localStorage.setItem('results', JSON.stringify(results))
-    
-    // displayResults("items-search", results, searchInput)
 }
 
 document.getElementById("view-cart").addEventListener("click", viewCart)
@@ -215,12 +213,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 )
 
-function displayResults(targetView, results, searchInput) {
+function displayResults(targetView, results) {
     const resultsView = document.getElementById(targetView)
 
-    const resultsArray = localStorage.getItem(results)
+    const resultsArray = JSON.parse(localStorage.getItem('results')) || []
 
-    let input = localStorage.getItem(searchInput)
+    let input = JSON.parse(localStorage.getItem('search'))
 
     switch(resultsArray.length) {
         case 0:
@@ -236,18 +234,66 @@ function displayResults(targetView, results, searchInput) {
             resultsView.appendChild(noResults)
             break;
         case 1:
-            console.log("There was " + results.length + " item found:")
-            results.forEach(result => {
-                // displayResults(targetView, results)
-                console.log("\t" + result.name)
-            });
+            console.log("There was " + resultsArray.length + " item found:")
+            
+            for(const item of resultsArray) {
+                console.log("\t" + item.name)
+                let element = document.createElement("ol")
+    
+                element.innerHTML = `<div data-aos="zoom-in-up" class="aos-init aos-animate">
+                <img src="${item.productUrl}" alt="${item.name}">
+                <div> ${item.name} </div>
+                <strong>$${item.price}</strong>
+                </div>
+                <button class="add-to-cart">Add to cart</button>`
+                resultsView.appendChild(element)
+
+                btnAddToCart = element.querySelector(".add-to-cart")
+
+                btnAddToCart.addEventListener("click", () => {
+                    addToCart(item.price, item.name, item.productUrl, item.category)
+                    Toastify ({
+                        text: "Item added to cart",
+                        duration: 1500,
+                        gravity: 'top',
+                        position: 'center',
+                        style: {
+                            background: '#000000'
+                        }
+                    }).showToast()
+                })
+            }
             break;
         default:
-            console.log("There were " + results.length + " items found:")
-            results.forEach(result => {
-                // displayResults(targetView, results)
-                console.log("\t" + result.name)
-            });
+            console.log("There were " + resultsArray.length + " items found:")
+
+            for(const item of resultsArray) {
+                console.log("\t" + item.name)
+                let element = document.createElement("ol")
+    
+                element.innerHTML = `<div data-aos="zoom-in-up" class="aos-init aos-animate">
+                <img src="${item.productUrl}" alt="${item.name}">
+                <div> ${item.name} </div>
+                <strong>$${item.price}</strong>
+                </div>
+                <button class="add-to-cart">Add to cart</button>`
+                resultsView.appendChild(element)
+
+                btnAddToCart = element.querySelector(".add-to-cart")
+
+                btnAddToCart.addEventListener("click", () => {
+                    addToCart(item.price, item.name, item.productUrl, item.category)
+                    Toastify ({
+                        text: "Item added to cart",
+                        duration: 1500,
+                        gravity: 'top',
+                        position: 'center',
+                        style: {
+                            background: '#000000'
+                        }
+                    }).showToast()
+                })
+            };
     }
 }
 
