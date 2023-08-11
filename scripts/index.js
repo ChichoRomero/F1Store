@@ -199,7 +199,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("search-input").addEventListener("keyup", (event) => {
             if (event.key === "Enter") {
                 search()
-                window.location.href = "/views/results.html"
+                window.location.href = "./views/results.html"
             }
         })
 
