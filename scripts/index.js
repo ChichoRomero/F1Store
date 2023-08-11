@@ -169,7 +169,7 @@ function search() {
 
     localStorage.setItem('results', JSON.stringify(results))
 
-    window.location.assign("/views/results.html")
+    window.location.replace("../views/results.html")
 }
 
 document.getElementById("view-cart").addEventListener("click", viewCart)
