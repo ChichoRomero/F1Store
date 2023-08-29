@@ -169,7 +169,11 @@ function search() {
 
     localStorage.setItem('results', JSON.stringify(results))
 
-    window.location.replace("../views/results.html")
+    if(window.location == "/index.html") {
+        window.location.href = "./views/results.html"
+    } else {
+        window.location.href = "../views/results.html"
+    }
 }
 
 document.getElementById("view-cart").addEventListener("click", viewCart)
@@ -215,6 +219,7 @@ document.addEventListener("DOMContentLoaded", () => {
 )
 
 function displayResults(targetView, results) {
+    console.log(targetView)
     const resultsView = document.getElementById(targetView)
 
     const resultsArray = JSON.parse(localStorage.getItem('results')) || []
