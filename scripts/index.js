@@ -170,7 +170,7 @@ function search() {
     localStorage.setItem('results', JSON.stringify(results))
 
     if(window.location == "/index.html") {
-        window.location.href = "./views/results.html"
+        window.location.href = "../views/results.html"
     } else {
         window.location.href = "../views/results.html"
     }
