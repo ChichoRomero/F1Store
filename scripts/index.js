@@ -169,13 +169,13 @@ function search() {
 
     localStorage.setItem('results', JSON.stringify(results))
 
-    window.location.href = "./views/results.html"
+    // window.location.href = "./views/results.html"
 
-    // if(window.location == "/index.html") {
-    //     window.location.href = "../views/results.html"
-    // } else {
-    //     window.location.href = "../views/results.html"
-    // }
+    if(window.location.pathname.endsWith == "/index.html") {
+        window.location.href = "./views/results.html"
+    } else {
+        window.location.href = "../views/results.html"
+    }
 }
 
 document.getElementById("view-cart").addEventListener("click", viewCart)
