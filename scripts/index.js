@@ -1,3 +1,4 @@
+// Array de productos
 const products = [
     {
         price: 80,
@@ -153,11 +154,13 @@ function viewCart() {
     console.log("Total Price: $" + totalPrice)
 }
 
+// Muestra la search bar en todas las páginas
 document.getElementById("search-bar").innerHTML = `<input type="text" id="search-input" class="form-control" placeholder="Search..." aria-label="Search..." aria-describedby="button-addon2">
 <div class="input-group-append">
     <button id="search-bar-button" class="btn btn-outline-secondary" type="button">Search</button>
 </div>`
 
+// Función de búsqueda
 function search() {
     const searchInput = document.getElementById("search-input").value
 
@@ -169,14 +172,6 @@ function search() {
 
     localStorage.setItem('results', JSON.stringify(results))
 
-    // window.location.href = "./views/results.html"
-
-    // if(window.location.pathname.endsWith == "/index.html") {
-    //     window.location.href = "./views/results.html"
-    // } else {
-    //     window.location.href = "/views/results.html"
-    // }
-
     const currentPath = window.location.pathname;
     const basePath = currentPath.endsWith("/index.html") ? "" : "../";
 
@@ -185,6 +180,7 @@ function search() {
 
 document.getElementById("view-cart").addEventListener("click", viewCart)
 
+// Listeners
 document.addEventListener("DOMContentLoaded", () => {
 
         path = window.location.pathname
@@ -225,6 +221,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 )
 
+// Muestra los resultados de una búsqueda
 function displayResults(targetView, results) {
     console.log(targetView)
     const resultsView = document.getElementById(targetView)
@@ -310,6 +307,7 @@ function displayResults(targetView, results) {
     }
 }
 
+// Muestra los items agregados al carrito
 function displayCart(targetView, cart) {
     const cartView = document.getElementById(targetView)
 
@@ -359,6 +357,7 @@ function displayCart(targetView, cart) {
     }
 }
 
+// Muestra los productos en la Home page
 function displayAll(targetView, products) {
     const homeView = document.getElementById(targetView)
 
@@ -390,6 +389,7 @@ function displayAll(targetView, products) {
     }
 }
 
+// Muestra la vestimenta
 function displayApparel(targetView, products) {
 
     const apparelView = document.getElementById(targetView)
@@ -425,6 +425,7 @@ function displayApparel(targetView, products) {
     }
 }
 
+// Muestra los accessorios
 function displayAccessories(targetView, products) {
 
     const accessoriesView = document.getElementById(targetView)
