@@ -171,11 +171,16 @@ function search() {
 
     // window.location.href = "./views/results.html"
 
-    if(window.location.pathname.endsWith == "/index.html") {
-        window.location.href = "./views/results.html"
-    } else {
-        window.location.href = "../views/results.html"
-    }
+    // if(window.location.pathname.endsWith == "/index.html") {
+    //     window.location.href = "./views/results.html"
+    // } else {
+    //     window.location.href = "/views/results.html"
+    // }
+
+    const currentPath = window.location.pathname;
+    const basePath = currentPath.endsWith("/index.html") ? "" : "../";
+
+    window.location.href = basePath + "views/results.html";
 }
 
 document.getElementById("view-cart").addEventListener("click", viewCart)
