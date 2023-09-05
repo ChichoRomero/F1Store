@@ -154,6 +154,9 @@ function viewCart() {
     console.log("Total Price: $" + totalPrice)
 }
 
+// Muestra el carrito
+document.getElementById("view-cart").innerHTML = `<img src="../img/shopping-cart.png" alt="Cart">`
+
 // Muestra la search bar en todas las páginas
 document.getElementById("search-bar").innerHTML = `<input type="text" id="search-input" class="form-control" placeholder="Search..." aria-label="Search..." aria-describedby="button-addon2">
 <div class="input-group-append">
