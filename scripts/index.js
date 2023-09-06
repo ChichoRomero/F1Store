@@ -185,9 +185,15 @@ function search() {
     localStorage.setItem('results', JSON.stringify(results))
 
     const currentPath = window.location.pathname;
-    const basePath = currentPath.endsWith("/index.html") ? "" : "../";
-
-    window.location.href = basePath + "views/results.html";
+    switch(true) {
+        case currentPath.endsWith("/index.html"):
+        case currentPath.endsWith("/"):
+            window.location.href = "./views/results.html"
+            break;
+        default:
+            window.location.href = "../views/results.html"
+            break;
+    }
 }
 
 document.getElementById("view-cart").addEventListener("click", viewCart)
