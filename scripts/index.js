@@ -155,7 +155,16 @@ function viewCart() {
 }
 
 // Mostrar el botón del carrito
-document.getElementById("view-cart").innerHTML = `<img src="/img/shopping-cart.png" alt="Cart">`
+const root = window.location.pathname
+switch(true) {
+    case root.endsWith("/index.html"):
+    case root.endsWith("/"):
+        document.getElementById("view-cart").innerHTML = `<img src="./img/shopping-cart.png" alt="Cart">`
+        break;
+    default:
+        document.getElementById("view-cart").innerHTML = `<img src="../img/shopping-cart.png" alt="Cart">`
+        break;
+}
 
 // Muestra la search bar en todas las páginas
 document.getElementById("search-bar").innerHTML = `<input type="text" id="search-input" class="form-control" placeholder="Search..." aria-label="Search..." aria-describedby="button-addon2">
