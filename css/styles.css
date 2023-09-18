@@ -4,7 +4,6 @@ body {
 
 header {
   background-color: #FF1E00;
-  color: #FFFFFF;
   padding: 10px;
   display: flex;
   flex-direction: column;
@@ -76,6 +75,11 @@ header {
 }
 .view-cart:focus {
   outline: none;
+}
+
+.cart-counter {
+  color: #000000;
+  padding-left: 5%;
 }
 
 .nav-bar-link {

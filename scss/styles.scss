@@ -8,7 +8,7 @@ body {
 
 header {
   background-color: $f1-red;
-  color: $f1-white;
+  // color: $f1-white;
   padding: 10px;
   display: flex;
   flex-direction: column;
@@ -83,6 +83,11 @@ header {
   &:focus {
     outline: none;
   }
+}
+
+.cart-counter {
+  color: $f1-black;
+  padding-left: 5%;
 }
 
 .nav-bar-link {
