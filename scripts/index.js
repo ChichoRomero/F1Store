@@ -180,7 +180,7 @@ function displayResults(targetView, results) {
                 btnAddToCart = element.querySelector(".add-to-cart")
 
                 btnAddToCart.addEventListener("click", () => { 
-                    clickAddToCart(product)
+                    clickAddToCart(item)
                 })
             };
     }
@@ -200,6 +200,8 @@ function displayCart(targetView, cart) {
         </div>
         </div>`
         cartView.appendChild(emptyCart)
+        let totalPrice = document.querySelector(".totalPrice")
+        totalPrice.innerHTML = ``
     } else {
         for (const product of cart) {
             let item = document.createElement("ol")
@@ -225,13 +227,12 @@ function displayCart(targetView, cart) {
             
             btnRemoveOne.addEventListener("click", () => {removeOneItem(cartView, product.name)})
             btnAddOne.addEventListener("click", () => {addOneItem(cartView, product.name)} )
-            btnRemoveFromCart.addEventListener("click", () => {removeItem(cartView, product.name)})
+            btnRemoveFromCart.addEventListener("click", () => {confirmRemoval(cartView, product.name)})
+
+            const price = calculateTotalPrice(cart)
+            let totalPrice = document.querySelector(".totalPrice")
+            totalPrice.innerHTML = `Price: $${price}`
         }
-        const price = calculateTotalPrice(cart)
-        const priceElement = document.createElement("div")
-        priceElement.className = "totalPrice"
-        priceElement.textContent = `Price: $${price}`
-        cartView.appendChild(priceElement)
     }
 }
 
@@ -268,16 +269,6 @@ function removeItem(cartView, productName) {
     cartView.innerHTML = ``
     displayCart("items-cart", cart)
     updateCartCounter()
-    Toastify ({
-        text: "Item removed from cart",
-            duration: 1500,
-            gravity: 'top',
-            position: 'center',
-            style: {
-                background: '#f5f5f5',
-                color: `#000000`
-            }
-        }).showToast()
 }
 
 // Función para reducir la cantidad de un item existente en el carrito
@@ -301,8 +292,35 @@ function removeOneItem(cartView, productName) {
             }
         }).showToast()
     } else {
-        removeItem(cartView, productName)
+        // removeItem(cartView, productName)
+        confirmRemoval(cartView, productName)
     }
+}
+
+// Modal de confirmación al eliminar un producto del carrito
+function confirmRemoval(cartView, productName){
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "This item will be removed from the cart",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#FF1E00',
+        cancelButtonColor: '#000000',
+        confirmButtonText: 'Yes, delete it!',
+        reverseButtons: true
+    })
+    .then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Deleted!',
+                text: 'The product was removed',
+                confirmButtonColor: '#000000',
+                confirmButtonText: 'OK'
+            })
+            removeItem(cartView, productName)
+        }
+    })
 }
 
 // Muestra los productos en la Home page

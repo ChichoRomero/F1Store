@@ -226,11 +226,10 @@ header {
 }
 
 .totalPrice {
-  // display: inline;
-  // position: relative;
-  // padding: auto;
-  // margin-right: 10%;
-  margin-left: 70%;
+  display: flex;
+  position: relative;
+  padding: auto;
+  margin-right: 30%;
   font-size: 32px;
   font-weight: bold;
   color: $f1-black;
