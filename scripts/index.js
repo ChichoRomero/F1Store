@@ -17,7 +17,6 @@ function redirectError() {
 }
 
 
-
 let itemsInCart = 0
 let totalPrice = 0
 const cart = JSON.parse(localStorage.getItem('cart')) || []
@@ -115,30 +114,32 @@ function search() {
 document.addEventListener("DOMContentLoaded", () => {
 
         path = window.location.pathname
-
-        switch(true) {
-            case path.endsWith("/apparel.html"):
-                displayApparel("items-apparel-list", products)
-                updateCartCounter()
-                break;
-            case path.endsWith("/accessories.html"):
-                displayAccessories("items-accessories-list", products)
-                updateCartCounter()
-                break;
-            case path.endsWith("/cart.html"):
-                displayCart("items-cart", cart)
-                updateCartCounter()
-                break;
-            case path.endsWith("/results.html"):
-                displayResults("items-search", results)
-                updateCartCounter()
-                break;
-            case path.endsWith("/index.html"):
-            default:
-                displayAll("items-home-list", products)
-                updateCartCounter()
-                break;
-        }
+        setTimeout(() => {
+            switch(true) {
+                case path.endsWith("/apparel.html"):
+                    displayApparel("items-apparel-list", products)
+                    updateCartCounter()
+                    break;
+                case path.endsWith("/accessories.html"):
+                    displayAccessories("items-accessories-list", products)
+                    updateCartCounter()
+                    break;
+                case path.endsWith("/cart.html"):
+                    displayCart("items-cart", cart)
+                    updateCartCounter()
+                    break;
+                case path.endsWith("/results.html"):
+                    displayResults("items-search", results)
+                    updateCartCounter()
+                    break;
+                case path.endsWith("/index.html"):
+                default:
+                    displayAll("items-home-list", products)
+                    updateCartCounter()
+                    break;
+            }
+        }, 1000)
+        
 
         document.getElementById("search-bar-button").addEventListener("click", search)
         document.getElementById("search-input").addEventListener("keyup", (event) => {
