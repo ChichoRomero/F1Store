@@ -8,7 +8,6 @@ body {
 
 header {
   background-color: $f1-red;
-  // color: $f1-white;
   padding: 10px;
   display: flex;
   flex-direction: column;
@@ -71,6 +70,8 @@ header {
   background-color: $f1-white;
   border-color: $f1-white;
   border-radius: 100px;
+  padding-left: 6%;
+  padding-right: 6%;
   margin-top: 1%;
   margin-right: 10%;
   margin-left: 90%;
@@ -83,11 +84,48 @@ header {
   &:focus {
     outline: none;
   }
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.quantity-line {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  align-self: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.remove-one {
+  margin-right: 10%;
+  background-color: $f1-grey;
+  border-radius: 100px;
+  padding: 5%;
+  font-size: 20px;
+  &:focus {
+    outline: none;
+  }
+}
+
+.add-one {
+  margin-left: 10%;
+  background-color: $f1-grey;
+  border-radius: 100px;
+  padding: 5%;
+  font-size: 20px;
+  &:focus {
+    outline: none;
+  }
 }
 
 .cart-counter {
   color: $f1-black;
   padding-left: 5%;
+  margin-left: 10px;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .nav-bar-link {
@@ -185,6 +223,17 @@ header {
       opacity: 90%;
     }
   }
+}
+
+.totalPrice {
+  // display: inline;
+  // position: relative;
+  // padding: auto;
+  // margin-right: 10%;
+  margin-left: 70%;
+  font-size: 32px;
+  font-weight: bold;
+  color: $f1-black;
 }
 
 nav {

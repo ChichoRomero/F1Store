@@ -63,6 +63,8 @@ header {
   background-color: #FFFFFF;
   border-color: #FFFFFF;
   border-radius: 100px;
+  padding-left: 6%;
+  padding-right: 6%;
   margin-top: 1%;
   margin-right: 10%;
   margin-left: 90%;
@@ -76,10 +78,47 @@ header {
 .view-cart:focus {
   outline: none;
 }
+.view-cart:hover {
+  text-decoration: none;
+}
+
+.quantity-line {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  align-self: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.remove-one {
+  margin-right: 10%;
+  background-color: #f5f5f5;
+  border-radius: 100px;
+  padding: 5%;
+  font-size: 20px;
+}
+.remove-one:focus {
+  outline: none;
+}
+
+.add-one {
+  margin-left: 10%;
+  background-color: #f5f5f5;
+  border-radius: 100px;
+  padding: 5%;
+  font-size: 20px;
+}
+.add-one:focus {
+  outline: none;
+}
 
 .cart-counter {
   color: #000000;
   padding-left: 5%;
+  margin-left: 10px;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .nav-bar-link {
@@ -177,6 +216,13 @@ header {
 }
 .items-list ol:not(:hover) {
   opacity: 90%;
+}
+
+.totalPrice {
+  margin-left: 70%;
+  font-size: 32px;
+  font-weight: bold;
+  color: #000000;
 }
 
 nav {

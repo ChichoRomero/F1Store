@@ -1,4 +1,4 @@
-// Array de productos
+// Array de productos traídos desde products.json
 const products = []
 
 function getProducts(path) {
@@ -16,57 +16,38 @@ function redirectError() {
     window.location.href = "../404.html"
 }
 
-
-let itemsInCart = 0
-let totalPrice = 0
 const cart = JSON.parse(localStorage.getItem('cart')) || []
-const cartCounter = cart ? cart.length : 0
 let i = 0
 
 class Product {
-    constructor(name, price, productUrl, category) {
+    constructor(name, price, productUrl, category, quantity) {
         this.name = name
         this.productUrl = productUrl
         this.category = category
         this.price = parseFloat(price)
+        this.quantity = quantity
     }
 }
 
-function saveCart(price, name, productUrl, category) {
-    cart.push(new Product(name, price, productUrl, category))
+// Guarda los productos en el carrito
+function saveCart(price, name, productUrl, category, quantity) {
+    cart.push(new Product(name, price, productUrl, category, quantity))
     localStorage.setItem('cart', JSON.stringify(cart))
 }
 
-
-function addToCart(price, name, productUrl, category) {
-    itemsInCart++
-    totalPrice = totalPrice + price
-    saveCart(price, name, productUrl, category)
-    i++
-}
-
-function viewCart() {
-
-    if(cart.length === 0) {
-        console.log("Cart is empty!")
+// Verifica si existe el producto en el carrito y actualiza o redirige a la función de guardado
+function addToCart(price, name, productUrl, category, quantity) {
+    const productExists = cart.find(item => item.name === name)
+    if(productExists) {
+        productExists.quantity++
+        localStorage.setItem('cart', JSON.stringify(cart))
     } else {
-        console.log("There are " + itemsInCart + " items in the cart")
-    
-        for(let j=0; j< cart.length; j++) {
-            console.log("Item in cart: " + cart[j].name + ", Price: $" + cart[j].price)
-        }
+        saveCart(price, name, productUrl, category, quantity)
     }
-
-    if(itemsInCart > 5) {
-        let discount = totalPrice * 0.05
-        console.log("5% DISCOUNT APPLIED! -$" + discount)
-        totalPrice = totalPrice * 0.95
-    }
-
-    console.log("Total Price: $" + totalPrice)
 }
 
 // Mostrar el botón del carrito
+// Mismo escenario que con los Listeners, al tener problemas de redireccionamiento con Github Pages, me fue más simple utilizar esta manera para manejar correctamente el redireccionamiento y mostrar el botón/imagen del carrito
 const root = window.location.pathname
 switch(true) {
     case root.endsWith("/index.html"):
@@ -92,8 +73,6 @@ function search() {
 
     localStorage.setItem('search', JSON.stringify(searchInput))
     
-    console.log("Results for: " + searchInput)
-    
     const results = products.filter((products) => products.name.toLowerCase().includes(searchInput.toLowerCase()))
 
     localStorage.setItem('results', JSON.stringify(results))
@@ -110,7 +89,8 @@ function search() {
     }
 }
 
-// Listeners
+// Listeners, agrega un timeout antes de cargar la vista para poder guardar los productos desde el JSON
+// Uso el switch porque Github Pages me dio varios problemas con el redireccionamiento, fue la manera más simple que se me ocurrió para poder manejar ese tipo de escenarios
 document.addEventListener("DOMContentLoaded", () => {
 
         path = window.location.pathname
@@ -161,12 +141,11 @@ document.addEventListener("DOMContentLoaded", () => {
 // Contador de items en el carrito
 function updateCartCounter() {
     const cartCounterElement = document.getElementById('cart-counter')
-    cartCounterElement.textContent = cart.length
+    cartCounterElement.textContent = cart.reduce((total, product) => total + product.quantity, 0)
 }
 
 // Muestra los resultados de una búsqueda
 function displayResults(targetView, results) {
-    console.log(targetView)
     const resultsView = document.getElementById(targetView)
 
     const resultsArray = JSON.parse(localStorage.getItem('results')) || []
@@ -175,7 +154,6 @@ function displayResults(targetView, results) {
 
     switch(resultsArray.length) {
         case 0:
-            console.log("No items found")
             let noResults = document.createElement("div")
 
             resultsView.innerHTML = `<div class="content-not-found">
@@ -186,42 +164,9 @@ function displayResults(targetView, results) {
             </div>`
             resultsView.appendChild(noResults)
             break;
-        case 1:
-            console.log("There was " + resultsArray.length + " item found:")
-            
-            for(const item of resultsArray) {
-                console.log("\t" + item.name)
-                let element = document.createElement("ol")
-    
-                element.innerHTML = `<div data-aos="zoom-in-up" class="aos-init aos-animate">
-                <img src="${item.productUrl}" alt="${item.name}">
-                <div> ${item.name} </div>
-                <strong>$${item.price}</strong>
-                </div>
-                <button class="add-to-cart">Add to cart</button>`
-                resultsView.appendChild(element)
-
-                btnAddToCart = element.querySelector(".add-to-cart")
-
-                btnAddToCart.addEventListener("click", () => {
-                    addToCart(item.price, item.name, item.productUrl, item.category)
-                    Toastify ({
-                        text: "Item added to cart",
-                        duration: 1500,
-                        gravity: 'top',
-                        position: 'center',
-                        style: {
-                            background: '#000000'
-                        }
-                    }).showToast()
-                })
-            }
-            break;
         default:
-            console.log("There were " + resultsArray.length + " items found:")
 
             for(const item of resultsArray) {
-                console.log("\t" + item.name)
                 let element = document.createElement("ol")
     
                 element.innerHTML = `<div data-aos="zoom-in-up" class="aos-init aos-animate">
@@ -234,17 +179,8 @@ function displayResults(targetView, results) {
 
                 btnAddToCart = element.querySelector(".add-to-cart")
 
-                btnAddToCart.addEventListener("click", () => {
-                    addToCart(item.price, item.name, item.productUrl, item.category)
-                    Toastify ({
-                        text: "Item added to cart",
-                        duration: 1500,
-                        gravity: 'top',
-                        position: 'center',
-                        style: {
-                            background: '#000000'
-                        }
-                    }).showToast()
+                btnAddToCart.addEventListener("click", () => { 
+                    clickAddToCart(product)
                 })
             };
     }
@@ -272,33 +208,100 @@ function displayCart(targetView, cart) {
             <img src="${product.productUrl}" alt="${product.name}">
             <div> ${product.name} </div>
             <strong>$${product.price}</strong>
+            <div class="quantity-line">
+            <button class="remove-one">-</button>
+            <div> Quantity: ${product.quantity}</div>
+            <button class="add-one">+</button>
+            </div>
             </div>
             <button class="remove-from-cart">Remove from cart</button>`
             cartView.appendChild(item)
 
             const index = cart.indexOf(product)
 
+            const btnRemoveOne = item.querySelector(".remove-one")
+            const btnAddOne = item.querySelector(".add-one")
             const btnRemoveFromCart = item.querySelector(".remove-from-cart")
-    
-            btnRemoveFromCart.addEventListener("click", () => {
-                cart.splice(index, 1)
-                localStorage.setItem('cart', JSON.stringify(cart))
-                cartView.innerHTML = ``
-                displayCart(targetView, cart)
-                updateCartCounter()
-                Toastify ({
-                    text: "Item removed",
-                    duration: 1500,
-                    gravity: 'top',
-                    position: 'center',
-                    style: {
-                        background: '#f5f5f5',
-                        color: `#000000`
-                    }
-                }).showToast()
-                itemsInCart--
-            })
+            
+            btnRemoveOne.addEventListener("click", () => {removeOneItem(cartView, product.name)})
+            btnAddOne.addEventListener("click", () => {addOneItem(cartView, product.name)} )
+            btnRemoveFromCart.addEventListener("click", () => {removeItem(cartView, product.name)})
         }
+        const price = calculateTotalPrice(cart)
+        const priceElement = document.createElement("div")
+        priceElement.className = "totalPrice"
+        priceElement.textContent = `Price: $${price}`
+        cartView.appendChild(priceElement)
+    }
+}
+
+// Función para calcular el precio total del carrito
+function calculateTotalPrice(cart) {
+    return cart.reduce((total, product) => total + (product.price * product.quantity), 0)
+}
+
+// Función para agregar 1 item al carrito desde un objeto existente en el carrito
+function addOneItem(cartView, productName) {
+    const productIndex = cart.findIndex(item => item.name === productName)
+    const product = cart[productIndex]
+    product.quantity++
+    localStorage.setItem('cart', JSON.stringify(cart))
+    cartView.innerHTML = ``
+    displayCart("items-cart", cart)
+    updateCartCounter()
+    Toastify ({
+        text: "One item added to cart",
+        duration: 1500,
+        gravity: 'top',
+        position: 'center',
+        style: {
+            background: '#000000'
+        }
+    }).showToast()
+}
+
+// Función para eliminar el total de existencias de un producto del carrito
+function removeItem(cartView, productName) {
+    const productIndex = cart.findIndex(item => item.name === productName)
+    cart.splice(productIndex, 1)
+    localStorage.setItem('cart', JSON.stringify(cart))
+    cartView.innerHTML = ``
+    displayCart("items-cart", cart)
+    updateCartCounter()
+    Toastify ({
+        text: "Item removed from cart",
+            duration: 1500,
+            gravity: 'top',
+            position: 'center',
+            style: {
+                background: '#f5f5f5',
+                color: `#000000`
+            }
+        }).showToast()
+}
+
+// Función para reducir la cantidad de un item existente en el carrito
+function removeOneItem(cartView, productName) {
+    const productIndex = cart.findIndex(item => item.name === productName)
+    const product = cart[productIndex]
+    if(product.quantity > 1) {
+        product.quantity--
+        localStorage.setItem('cart', JSON.stringify(cart))
+        cartView.innerHTML = ``
+        displayCart("items-cart", cart)
+        updateCartCounter()
+        Toastify ({
+            text: "One item removed",
+            duration: 1500,
+            gravity: 'top',
+            position: 'center',
+            style: {
+                background: '#f5f5f5',
+                color: `#000000`
+            }
+        }).showToast()
+    } else {
+        removeItem(cartView, productName)
     }
 }
 
@@ -319,18 +322,8 @@ function displayAll(targetView, products) {
 
         const btnAddToCart = item.querySelector(".add-to-cart")
 
-        btnAddToCart.addEventListener("click", () => {
-            addToCart(product.price, product.name, product.productUrl, product.category)
-            updateCartCounter()
-            Toastify ({
-                text: "Item added to cart",
-                duration: 1500,
-                gravity: 'top',
-                position: 'center',
-                style: {
-                    background: '#000000'
-                }
-            }).showToast()
+        btnAddToCart.addEventListener("click", () => { 
+            clickAddToCart(product)
         })
     }
 }
@@ -355,18 +348,8 @@ function displayApparel(targetView, products) {
 
             const btnAddToCart = item.querySelector(".add-to-cart")
 
-            btnAddToCart.addEventListener("click", () => {
-                addToCart(product.price, product.name, product.productUrl, product.category)
-                updateCartCounter()
-                Toastify ({
-                    text: "Item added to cart",
-                    duration: 1500,
-                    gravity: 'top',
-                    position: 'center',
-                    style: {
-                        background: '#000000'
-                    }
-                }).showToast()
+            btnAddToCart.addEventListener("click", () => { 
+                clickAddToCart(product)
             })
         }
     }
@@ -392,19 +375,24 @@ function displayAccessories(targetView, products) {
 
             const btnAddToCart = item.querySelector(".add-to-cart")
 
-            btnAddToCart.addEventListener("click", () => {
-                addToCart(product.price, product.name, product.productUrl, product.category)
-                updateCartCounter()
-                Toastify ({
-                    text: "Item added to cart",
-                    duration: 1500,
-                    gravity: 'top',
-                    position: 'center',
-                    style: {
-                        background: '#000000'
-                    }
-                }).showToast()
+            btnAddToCart.addEventListener("click", () => { 
+                clickAddToCart(product)
             })
         }
     }
+}
+
+// Función para agregar items al carrito desde las landings (se utiliza otra función para aquellos items que se agregan desde el carrito ya que el mensaje de éxito es otro)
+function clickAddToCart(product) {
+    addToCart(product.price, product.name, product.productUrl, product.category, 1)
+    updateCartCounter()
+    Toastify ({
+        text: "Item added to cart",
+        duration: 1500,
+        gravity: 'top',
+        position: 'center',
+        style: {
+            background: '#000000'
+        }
+    }).showToast()
 }
